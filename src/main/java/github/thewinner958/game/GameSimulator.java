@@ -105,4 +105,8 @@ public class GameSimulator {
 
         return winner;
     }
+
+    public GameSetup getSetup() {
+        return setup;
+    }
 }
