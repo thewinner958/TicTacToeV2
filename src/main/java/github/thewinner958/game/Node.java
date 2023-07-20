@@ -1,5 +1,6 @@
 package github.thewinner958.game;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,9 @@ public class Node implements Comparable<Node> {
     private final String[][] state;
     private final Move move;
     private final List<Node> children;
-    private double numVisits, UCTValue, victories, draws, losses = 0;
+    private double numVisits, victories, draws, losses = 0;
+    @Setter(AccessLevel.NONE) //Made it specifically to not be able to set the variable manually
+    private double UCTValue = 0;
     private int winner = GameSimulator.GAME_CONTINUES;
 
     public Node(GameSetup setup, boolean isPlayerX, Node parent, String[][] state, Move move) {
