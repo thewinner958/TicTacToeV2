@@ -10,14 +10,8 @@ public class Bot implements PlayerInterface{
     private final GameSetup setup;
     private MCTSBestMoveFinder moveFinder;
 
-    public Bot(GameSetup setup, boolean isItFirst, Node state) {
+    public Bot(GameSetup setup) {
         this.setup = setup;
-        if (isItFirst) {
-            moveFinder = new MCTSBestMoveFinder(this.setup);
-        } else {
-            if (state == null) throw new RuntimeException("No state was given!");
-            moveFinder = new MCTSBestMoveFinder(state, this.setup);
-        }
     }
 
     @Override
@@ -26,7 +20,8 @@ public class Bot implements PlayerInterface{
     }
 
     @Override
-    public Move getMove(Node state) {
-        return moveFinder.findBestMove(1000).getMove();
+    public Node getMove(Node state) {
+        moveFinder = new MCTSBestMoveFinder(state, setup);
+        return moveFinder.findBestMove(1000);
     }
 }

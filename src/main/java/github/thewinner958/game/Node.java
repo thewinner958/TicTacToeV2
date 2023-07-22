@@ -61,7 +61,7 @@ public class Node implements Comparable<Node> {
         String[][] state = this.state;
         if (!state[move.row()][move.column()].equals(setup.getCharEmpty())) throw new RuntimeException("Invalid move");
         state[move.row()][move.column()] = move.isPlayerX() ? setup.getCharX() : setup.getCharO();
-        return new Node(setup, move.isPlayerX(), this, state, move);
+        return new Node(setup, !move.isPlayerX(), this, state, move);
     }
 
     @Override
@@ -76,5 +76,17 @@ public class Node implements Comparable<Node> {
         int result = Objects.hash(getSetup(), isPlayerX(), getParent(), getMove());
         result = 31 * result + Arrays.deepHashCode(getState());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (String[] row : state) {
+            for (String column : row) {
+                builder.append(column).append(" ");
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 }

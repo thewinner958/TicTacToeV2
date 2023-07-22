@@ -16,7 +16,7 @@ public class Player implements PlayerInterface{
     }
 
     @Override
-    public Move getMove(Node state) {
-        return state.getMove();
+    public Node getMove(Node state) {
+        return state;
     }
 }

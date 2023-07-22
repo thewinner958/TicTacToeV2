@@ -10,10 +10,10 @@ import java.util.Random;
 
 public class GameSimulator {
     static final int EMPTY = -1;
-    static final int O = 0;
-    static final int X = 1;
+    public static final int O = 0;
+    public static final int X = 1;
 
-    static final int DRAW = 2;
+    public static final int DRAW = 2;
     public static final int GAME_CONTINUES = -2;
 
     private final GameSetup setup;

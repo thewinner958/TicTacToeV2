@@ -12,7 +12,7 @@ public class MCTSBestMoveFinder {
     private Node rootNode;
     private Node bestMove;
 
-    public MCTSBestMoveFinder() { //if machine starts, default setup
+    public MCTSBestMoveFinder() {
         simulator = new GameSimulator();
         setup = simulator.getSetup();
         String[][] state = new String[setup.getSize()][setup.getSize()];
@@ -24,7 +24,7 @@ public class MCTSBestMoveFinder {
         rootNode = new Node(setup, false, null, state, null);
     }
 
-    public MCTSBestMoveFinder(GameSetup setup) { //if machine starts, custom setup
+    public MCTSBestMoveFinder(GameSetup setup) {
         this.setup = setup;
         simulator = new GameSimulator(this.setup);
         String[][] state = new String[this.setup.getSize()][this.setup.getSize()];
@@ -36,13 +36,13 @@ public class MCTSBestMoveFinder {
         rootNode = new Node(this.setup, false, null, state, null);
     }
 
-    public MCTSBestMoveFinder(Node rootNode) { //if human starts, default setup
+    public MCTSBestMoveFinder(Node rootNode) {
         simulator = new GameSimulator();
         setup = simulator.getSetup();
         this.rootNode = rootNode;
     }
 
-    public MCTSBestMoveFinder(Node rootNode, GameSetup setup) { //if human starts, custom setup
+    public MCTSBestMoveFinder(Node rootNode, GameSetup setup) {
         this.setup = setup;
         simulator = new GameSimulator(this.setup);
         this.rootNode = rootNode;
@@ -76,8 +76,8 @@ public class MCTSBestMoveFinder {
         for (Move move : moves) {
             String[][] gameState = node.getState().clone();
             gameState[move.row()][move.column()] = node.isPlayerX() ? node.getSetup().getCharX() : node.getSetup().getCharO();
-            Node child = new Node(node.getSetup(), node.isPlayerX(), node, gameState, move);
-            child.setWinner(simulator.checkWinOrDraw(child.getState(), child.isPlayerX()));
+            Node child = new Node(node.getSetup(), !node.isPlayerX(), node, gameState, move);
+            child.setWinner(simulator.checkWinOrDraw(child.getState(), !child.isPlayerX()));
             node.getChildren().add(child);
         }
     }
