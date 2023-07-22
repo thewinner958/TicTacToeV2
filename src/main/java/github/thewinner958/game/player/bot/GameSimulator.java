@@ -1,4 +1,8 @@
-package github.thewinner958.game;
+package github.thewinner958.game.player.bot;
+
+import github.thewinner958.game.GameSetup;
+import github.thewinner958.game.Move;
+import github.thewinner958.game.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +14,7 @@ public class GameSimulator {
     static final int X = 1;
 
     static final int DRAW = 2;
-    static final int GAME_CONTINUES = -2;
+    public static final int GAME_CONTINUES = -2;
 
     private final GameSetup setup;
     private final Random random;

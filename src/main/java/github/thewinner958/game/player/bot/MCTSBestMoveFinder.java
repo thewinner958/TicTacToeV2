@@ -1,4 +1,8 @@
-package github.thewinner958.game;
+package github.thewinner958.game.player.bot;
+
+import github.thewinner958.game.GameSetup;
+import github.thewinner958.game.Move;
+import github.thewinner958.game.Node;
 
 import java.util.Collections;
 import java.util.List;
