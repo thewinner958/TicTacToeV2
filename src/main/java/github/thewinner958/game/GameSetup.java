@@ -23,4 +23,11 @@ public class GameSetup {
         if (size < 3) throw new RuntimeException("You can't have a board less than 3x3");
         this.size = size;
     }
+
+    public GameSetup(GameSetup another) { // Copy constructor
+        this.charX = another.charX;
+        this.charO = another.charO;
+        this.charEmpty = another.charEmpty;
+        this.size = another.size;
+    }
 }
