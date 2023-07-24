@@ -71,14 +71,16 @@ public class MCTSBestMoveFinder {
     }
 
     //Expand
-    public void generateChildren(Node node) {
+    public void generateChildren(Node node) { // FIXME: 24/07/2023 Causes to fill the board
         List<Move> moves = simulator.getAllPossibleMoves(node.getState(), node.isPlayerX());
+        String[][] initState = node.getState();
         for (Move move : moves) {
-            String[][] gameState = node.getState().clone();
+            String[][] gameState = node.getState();
             gameState[move.row()][move.column()] = node.isPlayerX() ? node.getSetup().getCharX() : node.getSetup().getCharO();
             Node child = new Node(node.getSetup(), !node.isPlayerX(), node, gameState, move);
             child.setWinner(simulator.checkWinOrDraw(child.getState(), !child.isPlayerX()));
             node.getChildren().add(child);
+            gameState = initState;
         }
     }
 
