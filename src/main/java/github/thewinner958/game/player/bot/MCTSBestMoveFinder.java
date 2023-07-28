@@ -9,7 +9,7 @@ import java.util.List;
 public class MCTSBestMoveFinder {
     private GameSetup setup;
     private GameSimulator simulator;
-    private Node rootNode;
+    private final Node rootNode;
     private Node bestMove;
 
     public MCTSBestMoveFinder() {
@@ -55,7 +55,10 @@ public class MCTSBestMoveFinder {
         while (true) {
             if (currentNode.getWinner() != GameSimulator.GAME_CONTINUES) return currentNode;
             if (currentNode.getChildren().isEmpty()) {
-                generateChildren(currentNode);
+                currentNode = generateChildren(currentNode);
+                if (currentNode.getChildren().isEmpty()) {
+                    return currentNode.getParent();
+                }
                 return currentNode.getChildren().get(0);
             } else {
                 for (Node child : currentNode.getChildren()) {
@@ -71,15 +74,19 @@ public class MCTSBestMoveFinder {
     }
 
     //Expand
-    public void generateChildren(Node node) {
+    public Node generateChildren(Node node) {
+        Node initState = new Node(node);
         List<Move> moves = simulator.getAllPossibleMoves(node.getState(), node.isPlayerX());
         for (Move move : moves) {
-            String[][] gameState = node.getState().clone();
-            gameState[move.row()][move.column()] = node.isPlayerX() ? node.getSetup().getCharX() : node.getSetup().getCharO();
-            Node child = new Node(node.getSetup(), !node.isPlayerX(), node, gameState, move);
+            String[][] state = node.getState().clone();
+            state[move.row()][move.column()] = node.isPlayerX() ? node.getSetup().getCharX() : node.getSetup().getCharO();
+            Node child = new Node(node.getSetup(), !node.isPlayerX(), node, state, move);
             child.setWinner(simulator.checkWinOrDraw(child.getState(), !child.isPlayerX()));
             node.getChildren().add(child);
+            initState.getChildren().add(new Node(child));
+            node = new Node(initState);
         }
+        return node;
     }
 
     //Backpropagate

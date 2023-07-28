@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import static github.thewinner958.game.player.bot.GameSimulator.*;
 
-// TODO: 22/07/2023 finish this class
 @Getter
 @Setter
 public class Game {
@@ -84,6 +83,7 @@ public class Game {
         return winner;
     }
 
+    // FIXME: 28/07/2023 after the first move, the bot sends the final move
     public void play() { //Temporary. probably gonna remove it when i start implementing spring
         int winner = checkWinOrDraw(state);
         Scanner scanner = new Scanner(System.in);

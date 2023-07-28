@@ -33,6 +33,15 @@ public class Node implements Comparable<Node> {
         children = new ArrayList<>();
     }
 
+    public Node(Node another) { // Copy constructor
+        this.setup = new GameSetup(another.setup);
+        this.isPlayerX = another.isPlayerX;
+        this.parent = another.parent == null ? null : new Node(another.parent);
+        this.state = Arrays.stream(another.state).map(String[]::clone).toArray(String[][]::new);
+        this.move = another.move;
+        this.children = another.children.isEmpty() ? new ArrayList<>() : another.children.subList(0, another.children.size() - 1);
+    }
+
     public Node(GameSetup setup, boolean isPlayerX) {
         this.setup = setup;
         this.isPlayerX = isPlayerX;
